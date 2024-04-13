@@ -8,7 +8,7 @@ import datetime
 
 class PwnClock(plugins.Plugin):
     __author__ = "https://github.com/LoganMD"
-    __version__ = "1.0.3"
+    __version__ = "1.0.4"
     __license__ = "GPL3"
     __description__ = "Clock/Calendar for pwnagotchi"
 
@@ -27,17 +27,24 @@ class PwnClock(plugins.Plugin):
 
         if ui.is_waveshare_v2():
             pos = (130, 80) if memenable else (200, 80)
-            ui.add_element(
-                "clock",
-                LabeledValue(
-                    color=BLACK,
-                    label="",
-                    value="-/-/-\n-:--",
-                    position=pos,
-                    label_font=fonts.Small,
-                    text_font=fonts.Small,
-                ),
-            )
+
+        elif ui.is_waveshare1in54V2():
+            pos = (150, 110)
+
+        else:
+            pos = (100, 100)
+
+        ui.add_element(
+            "clock",
+            LabeledValue(
+                color=BLACK,
+                label="",
+                value="-/-/-\n-:--",
+                position=pos,
+                label_font=fonts.Small,
+                text_font=fonts.Small,
+            ),
+        )
 
     def on_ui_update(self, ui):
         now = datetime.datetime.now()
